@@ -1,0 +1,14 @@
+{"id": "skills-list", "text": "Technical Skills\nPython, Java, C++, JavaScript, React, Node.js, MongoDB, Docker", "skills": ["Python", "Java", "C++", "JavaScript", "React", "Node.js", "MongoDB", "Docker"]}
+{"id": "experience-prose", "text": "Experience\nBuilt microservices with Spring Boot and deployed them to AWS using Jenkins pipelines. Wrote unit tests in JUnit.", "skills": ["Microservices", "Spring Boot", "AWS", "Jenkins", "Unit Testing", "JUnit"]}
+{"id": "aliases", "text": "Skills: k8s, sklearn, NodeJS, Postgres, Golang, ML, NLP, GCP", "skills": ["Kubernetes", "scikit-learn", "Node.js", "PostgreSQL", "Go", "Machine Learning", "Natural Language Processing", "Google Cloud"]}
+{"id": "ambiguous-negatives", "text": "Experience\nLed the Go to market plan for three regions and helped the team react quickly to customer feedback. Received grade C in Physics. I excel at building relationships.", "skills": []}
+{"id": "ambiguous-positives", "text": "Projects\nStatistical analysis in R and Python. Wrote a CLI tool in Go using Cobra. Firmware written in C for an STM32 board.", "skills": ["Statistics", "R", "Python", "Go", "C", "Embedded Systems", "Microcontrollers"]}
+{"id": "hyphens-and-plurals", "text": "Summary\nMachine-learning engineer experienced with scikit-learn, REST APIs, CI/CD pipelines and object-oriented programming.", "skills": ["Machine Learning", "scikit-learn", "REST APIs", "CI/CD", "Object-Oriented Programming"]}
+{"id": "name-line", "text": "Ruby Martinez\nruby.martinez@example.com\nSkills\nExcel, Power BI, Tableau, SQL", "skills": ["Microsoft Excel", "Power BI", "Tableau", "SQL"]}
+{"id": "soft-skills", "text": "Summary\nDetail-oriented data analyst with strong communication and stakeholder management skills; experienced in Excel, SQL and Looker.", "skills": ["Attention to Detail", "Communication", "Stakeholder Management", "Microsoft Excel", "SQL", "Looker"]}
+{"id": "all-caps-skills", "text": "SKILLS\nPYTHON, GO, DOCKER, TERRAFORM", "skills": ["Python", "Go", "Docker", "Terraform"]}
+{"id": "symbol-names", "text": "Experience\nMaintained C#/.NET services and a legacy ASP.NET MVC portal; migrated reporting from VB.NET to Power BI.", "skills": ["C#", ".NET", "ASP.NET", "Visual Basic", "Power BI"]}
+{"id": "line-wrapped-phrase", "text": "Experience\nBuilt finance dashboards in Power\nBI and automated the refresh with Python.", "skills": ["Power BI", "Python"]}
+{"id": "employer-name", "text": "Experience\nSoftware Engineer, Oracle - Redwood City\nDeveloped billing services in Java and Spring.", "skills": ["Java", "Spring"]}
+{"id": "paraphrased-skill", "text": "Projects\nTrained a sentiment classifier on product reviews and served it behind a Flask endpoint.", "skills": ["Sentiment Analysis", "Flask"]}
+{"id": "word-not-skill", "text": "Experience\nPresented quarterly results to senior leadership and the board.", "skills": []}

@@ -1,0 +1,18 @@
+Senior Data Engineer - Acme Payments
+
+About the role
+We are looking for a data engineer to build and scale the pipelines behind our fraud and risk
+products. You will own ingestion, modelling and data quality for payment events.
+
+Requirements:
+• 4+ years of experience with Python and SQL
+• Hands-on experience with Apache Spark, Kafka and Airflow
+• Experience with a cloud data warehouse such as Snowflake or BigQuery
+• Strong knowledge of AWS and infrastructure as code (Terraform)
+• Comfortable with Docker and Kubernetes
+
+Nice to have:
+• Experience with dbt and Great Expectations
+• Familiarity with machine learning workflows and MLflow
+• Exposure to Java or Scala
+• Excellent communication skills

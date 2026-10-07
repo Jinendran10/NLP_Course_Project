@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume Skill Extractor</title>
+<style>
+  :root {
+    --bg: #f5f6f8; --card: #ffffff; --text: #1c2230; --muted: #5d6677; --border: #dde1e8;
+    --accent: #2f5bea; --accent-text: #ffffff;
+    --high: #17663b; --high-bg: #dff3e7; --medium: #7a5300; --medium-bg: #fbefd2;
+    --low: #4b5563; --low-bg: #eceef2; --bad: #a3221a; --bad-bg: #fbe4e2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #11141a; --card: #1a1f28; --text: #e5e8ee; --muted: #9aa3b2; --border: #2b3240;
+      --accent: #7d9bff; --accent-text: #0f1320;
+      --high: #7fdca5; --high-bg: #163525; --medium: #f1c66a; --medium-bg: #3a2e12;
+      --low: #b4bac5; --low-bg: #262c37; --bad: #ff9a90; --bad-bg: #3e1d1a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  h2 { font-size: 1.15rem; margin: 0 0 12px; }
+  h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 18px 0 8px; }
+  p.lead { color: var(--muted); margin: 0 0 24px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+  label { display: block; font-weight: 600; margin-bottom: 14px; }
+  label span { display: block; font-weight: 400; color: var(--muted); font-size: .9rem; }
+  input[type=file] { margin-top: 6px; color: var(--text); }
+  textarea { width: 100%; margin-top: 6px; padding: 10px; border: 1px solid var(--border); border-radius: 8px;
+             background: var(--bg); color: var(--text); font: 13px/1.45 ui-monospace, Consolas, monospace; resize: vertical; }
+  details { margin-bottom: 14px; }
+  summary { cursor: pointer; color: var(--accent); }
+  button { background: var(--accent); color: var(--accent-text); border: 0; border-radius: 8px;
+           padding: 10px 18px; font-weight: 600; font-size: 15px; cursor: pointer; }
+  .error { background: var(--bad-bg); color: var(--bad); border-color: transparent; }
+  .stats { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); }
+  .stats b { color: var(--text); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { display: inline-flex; align-items: baseline; gap: 6px; padding: 3px 10px; border-radius: 999px;
+          font-size: .9rem; background: var(--low-bg); color: var(--low); cursor: default; }
+  .chip small { opacity: .8; font-variant-numeric: tabular-nums; }
+  .chip.high { background: var(--high-bg); color: var(--high); }
+  .chip.medium { background: var(--medium-bg); color: var(--medium); }
+  .chip.missing { background: var(--bad-bg); color: var(--bad); }
+  .legend { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .score { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 8px; }
+  .score .big { font-size: 2.6rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+  .meter { flex: 1; min-width: 160px; height: 10px; background: var(--low-bg); border-radius: 999px; overflow: hidden; }
+  .meter div { height: 100%; background: var(--accent); }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Resume Skill Extractor</h1>
+  <p class="lead">Upload a resume to pull out its skills, grouped and scored by how strongly the resume supports them.
+    Add a job description to see how well the resume covers it.</p>
+
+  <form class="card" method="post" enctype="multipart/form-data">
+    <label>Resume file
+      <span>PDF, DOCX, TXT or Markdown, up to 5 MB</span>
+      <input type="file" name="resume" accept="{{ accept }}">
+    </label>
+    <details {% if form.resume_text %}open{% endif %}>
+      <summary>…or paste the resume text</summary>
+      <textarea name="resume_text" rows="10">{{ form.resume_text or "" }}</textarea>
+    </details>
+    <label>Job description <span>Optional. Lines under "Nice to have" / "Preferred" count as preferred skills.</span>
+      <textarea name="job_text" rows="7">{{ form.job_text or "" }}</textarea>
+    </label>
+    <button type="submit">Extract skills</button>
+  </form>
+
+  {% if error %}<div class="card error">{{ error }}</div>{% endif %}
+
+  {% if result %}
+    {% set summary = result.to_dict()["summary"] %}
+    {% if match %}
+    <section class="card">
+      <h2>Job match</h2>
+      <div class="score">
+        <div class="big">{{ "%.0f"|format(match.score) }}<span class="muted" style="font-size:1rem">/100</span></div>
+        <div class="meter" role="img" aria-label="match score {{ match.score }} out of 100"><div style="width: {{ match.score }}%"></div></div>
+      </div>
+      <div class="stats">
+        <span>Skill coverage <b>{{ "%.0f"|format(match.skill_coverage * 100) }}%</b></span>
+        <span>Text similarity <b>{{ "%.2f"|format(match.text_similarity) }}</b></span>
+        <span>Job asks for <b>{{ match.required|length }}</b> required, <b>{{ match.preferred|length }}</b> preferred skills</span>
+      </div>
+      <h3>Matched</h3>
+      <div class="chips">{% for s in match.matched %}<span class="chip high">{{ s }}</span>{% else %}<span class="muted">None</span>{% endfor %}</div>
+      <h3>Missing — required</h3>
+      <div class="chips">{% for s in match.missing_required %}<span class="chip missing">{{ s }}</span>{% else %}<span class="muted">None</span>{% endfor %}</div>
+      <h3>Missing — preferred</h3>
+      <div class="chips">{% for s in match.missing_preferred %}<span class="chip medium">{{ s }}</span>{% else %}<span class="muted">None</span>{% endfor %}</div>
+      {% if match.extra %}
+      <h3>Other resume skills</h3>
+      <div class="chips">{% for s in match.extra %}<span class="chip">{{ s }}</span>{% endfor %}</div>
+      {% endif %}
+    </section>
+    {% endif %}
+
+    <section class="card">
+      <h2>Extracted skills</h2>
+      <div class="stats">
+        <span><b>{{ summary.total }}</b> skills</span>
+        <span><b>{{ summary.high }}</b> high</span>
+        <span><b>{{ summary.medium }}</b> medium</span>
+        <span><b>{{ summary.low }}</b> low confidence</span>
+        <span>Sections: <b>{{ result.sections|join(", ") or "none detected" }}</b></span>
+      </div>
+      <div class="legend">
+        <span class="chip high">high ≥ 0.75</span><span class="chip medium">medium ≥ 0.50</span><span class="chip">low</span>
+        <span class="muted">Hover a skill to see where it was found.</span>
+      </div>
+      {% for category, skills in result.by_category().items() %}
+        <h3>{{ category }}</h3>
+        <div class="chips">
+          {% for s in skills %}
+          <span class="chip {{ s.level }}" title="Confidence {{ s.confidence }} · {{ s.mentions|length }} mention(s) in {{ s.sections|join(', ') }}&#10;{% for e in s.evidence %}• {{ e }}&#10;{% endfor %}">{{ s.name }} <small>{{ "%.2f"|format(s.confidence) }}</small></span>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="muted">No known skills found.</p>
+      {% endfor %}
+      {% if result.other_skills %}
+        <h3>Listed under skills but not in the taxonomy</h3>
+        <div class="chips">{% for s in result.other_skills %}<span class="chip">{{ s }}</span>{% endfor %}</div>
+      {% endif %}
+    </section>
+  {% endif %}
+</main>
+</body>
+</html>

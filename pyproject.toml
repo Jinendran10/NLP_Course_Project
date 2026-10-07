@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "resume-skill-extractor"
+version = "0.1.0"
+description = "Extract and score skills from resumes and match them against job descriptions."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["pymupdf>=1.24", "python-docx>=1.0", "flask>=3.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+resume-skills = "resume_skill_extractor.cli:main"
+
+[tool.setuptools]
+packages = ["resume_skill_extractor"]
+
+[tool.setuptools.package-data]
+resume_skill_extractor = ["data/*.json", "templates/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

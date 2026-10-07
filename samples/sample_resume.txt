@@ -1,0 +1,37 @@
+Alex Morgan
+alex.morgan@example.com | +1 555 0100 | linkedin.com/in/alexmorgan | github.com/alexmorgan
+
+PROFESSIONAL SUMMARY
+Data engineer with 5+ years of experience building data pipelines and machine learning
+platforms. Comfortable owning projects end to end and mentoring junior engineers.
+
+TECHNICAL SKILLS
+Languages: Python, SQL, Scala, R, Go
+Frameworks & Libraries: PySpark, Pandas, scikit-learn, FastAPI, React
+Data & Cloud: AWS (S3, EC2, Lambda), Snowflake, PostgreSQL, Kafka, Airflow, dbt
+Tools: Git, Docker, Kubernetes, Terraform, Jenkins, Jira, Looker, Great Expectations
+Soft skills: Communication, Stakeholder Management, Problem Solving
+
+WORK EXPERIENCE
+Senior Data Engineer - Northwind Analytics, Remote                         2021 - Present
+• Designed batch and streaming data pipelines with Apache Spark and Kafka processing 2B events/day.
+• Migrated the on-premise data warehouse to Snowflake, cutting reporting latency by 60%.
+• Built internal REST APIs in Go and Python (FastAPI) for feature serving; deployed on Kubernetes.
+• Mentored four junior engineers and led code reviews for the platform team.
+
+Data Engineer - Contoso Retail, Austin TX                                  2019 - 2021
+• Wrote ETL jobs in Python and SQL orchestrated with Airflow; added unit tests with pytest.
+• Created Tableau dashboards for the merchandising team and ran A/B tests on pricing.
+• Led the Go to market analytics for a new loyalty program.
+
+PROJECTS
+Real-time Fraud Detection - Trained an XGBoost model on transaction features, tracked experiments
+in MLflow and served predictions through a Dockerized FastAPI service.
+Resume Parser - NLP pipeline using spaCy for named entity recognition on 10k resumes.
+
+EDUCATION
+B.S. Computer Science, University of Texas at Austin - 2019
+Relevant coursework: Machine Learning, Distributed Systems, Data Structures & Algorithms, Statistics; grade C in Organic Chemistry
+
+CERTIFICATIONS
+AWS Certified Data Analytics - Specialty
